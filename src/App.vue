@@ -7,7 +7,7 @@
     >
       <template v-slot:prepend>
         <div class="pa-2">
-          <v-btn block >
+          <v-btn block @click="showDialog">
             Show Dialog1
           </v-btn>
         </div>
@@ -15,14 +15,14 @@
       <v-list nav>
         <v-list-item v-for="i in 9">
           <div class="pa-2">
-            <v-btn > Show Dialog List{{ i }}</v-btn>
+            <v-btn @click="showDialog"> Show Dialog List{{ i }}</v-btn>
           </div>
         </v-list-item>
 
       </v-list>
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block >
+          <v-btn block @click="showDialog">
             Show Dialog2
           </v-btn>
         </div>
@@ -38,6 +38,13 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import createDialog from '@/components/LocalDialog/index.js'
+
+ function showDialog(){
+  createDialog()
+ }
+
 </script>
 
 
