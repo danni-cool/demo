@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多个 Div 和按钮示例</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .box {
+            height: 100px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <button class="button">按钮 1</button>
+        </div>
+        <div class="box">
+            <button class="button">按钮 2</button>
+        </div>
+        <div class="box">
+            <button class="button">按钮 3</button>
+        </div>
+        <div class="box">
+            <button class="button">按钮 4</button>
+        </div>
+    </div>
+</body>
+</html>
