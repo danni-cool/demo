@@ -3,7 +3,7 @@
     <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" theme="dark" permanent>
       <template v-slot:prepend>
         <div class="pa-2">
-          <v-btn block @click="openDialog($event)">
+          <v-btn block>
             Show Dialog1
           </v-btn>
         </div>
@@ -11,7 +11,9 @@
       <v-list nav>
         <v-list-item v-for="i in 9">
           <div class="pa-2">
-            <v-btn @click="openDialog($event)"> Show Dialog List{{ i }}</v-btn>
+            <LocalDialog :content="`example2: twice click for hidden, There is no need to add @click events`">
+              <v-btn> Show Dialog List{{ i }}</v-btn>
+            </LocalDialog>
           </div>
         </v-list-item>
 
@@ -37,6 +39,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { toggleDialog, fixPosition } from '@/components/LocalDialog/index.js'
 const iframeElMap = new Map()
+import LocalDialog from '@/components/LocalDialog/index.vue'
 
 //accept position data from iframe element
 onMounted(() => {

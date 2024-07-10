@@ -11,7 +11,7 @@ let defaultSetting = {
 export function fixPosition({fixedElPrefix, callback}) {
   map.forEach((v,k)=> {
     if(k.indexOf(fixedElPrefix) > -1) {
-      callback && callback(v,k)
+      callback && callback(v)
     }
   })
 }
@@ -87,7 +87,7 @@ function updateDialogPosAndToggle(component, relativeElPos) {
  * calculate the proper position of dialog
  * @param {Object} elPosition
  */
-function calcDialogPosition(relativeElPos, dialogElPos) {
+export function calcDialogPosition(relativeElPos, dialogElPos) {
   // console.table({ relativeElPos, dialogElPos })
   const winH = document.body.clientHeight
   const winW = document.body.clientWidth

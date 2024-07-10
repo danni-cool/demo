@@ -1,24 +1,77 @@
 <template>
-  <v-dialog v-model="props.modelValue" :attach="true" :scrim="false" :width="width"
-    :style="{ '--style-top': styleTop, '--style-left': styleLeft }">
-    <v-card>
-      <h1>hello world</h1>
-    </v-card>
+  <div class="float-dialog-wrap" @click="toggleDialog">
+    <span ref="slotWrap">
+      <slot></slot>
+    </span>
+    <div>
+      <v-dialog  v-model="modelVisible" :attach="attach" :scrim="false" :width="width" :height="height"
+        :style="{ '--style-top': styleTop, '--style-left': styleLeft }">
+        <v-card ref="vDialogContent">
+          <h1>{{ content }}</h1>
+        </v-card>
+      </v-dialog>
+    </div>
+  </div>
 
-  </v-dialog>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { calcDialogPosition } from './index.js'
+import { ref, reactive, computed, defineEmits, onMounted, nextTick, watch } from 'vue'
+
+const $emits = defineEmits(['update:modelValue', 'update:top', 'update:left'])
 const props = defineProps({
   modelValue: { type: Boolean },
   width: { type: Number, default: 200 },
+  height: {type: Number, default: 200},
   top: { type: Number, default: 0 },
-  left: { type: Number, default: 0 }
+  left: { type: Number, default: 0 },
+  content: { type: String, default: 'hello world' },
+  attach: { type: [String, Boolean], default: true }
+})
+const modelVisible = ref(false)
+const slotWrap = ref(null)
+const vDialogContent = ref(null)
+const slotElSizeObj = reactive({ width: 0, height: 0, left: 0, top: 0 })
+const dialogContentSizeObj = reactive({ width: 0, height: 0 })
+const topOffset = ref(props.top)
+const leftOffset = ref(props.left)
+const styleLeft = computed(() => `${leftOffset.value}px`)
+const styleTop = computed(() => `${topOffset.value}px`)
+
+watch(props.left, (newVal, oldVal) => {
+  topOffset.value = newVal
 })
 
-const styleLeft = computed(() => `${props.left}px`)
-const styleTop = computed(() => `${props.top}px`)
+watch(props.top, (newVal, oldVal) => {
+  leftOffset.value = newVal
+})
+
+onMounted(() => {
+  const { width, height, left, top } = slotWrap.value.getBoundingClientRect()
+  slotElSizeObj.height = height
+  slotElSizeObj.width = width
+  slotElSizeObj.top = top
+  slotElSizeObj.left = left
+})
+
+function toggleDialog() {
+  modelVisible.value = !modelVisible.value
+  $emits('update:modelValue', modelVisible.value)
+
+  if (modelVisible.value) {
+    nextTick(() => {
+      const dialogContentEl = vDialogContent.value.$el
+      dialogContentSizeObj.width = dialogContentEl.offsetWidth
+      dialogContentSizeObj.height = dialogContentEl.offsetHeight
+      const { left, top } = calcDialogPosition(slotElSizeObj, dialogContentSizeObj)
+      topOffset.value = top
+      leftOffset.value = left
+      $emits('update:top', top)
+      $emits('update:left', left)
+    })
+  }
+}
 
 </script>
 
