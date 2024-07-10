@@ -3,15 +3,17 @@
     <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" theme="dark" permanent>
       <template v-slot:prepend>
         <div class="pa-2">
-          <v-btn block>
-            Show Dialog1
-          </v-btn>
+          <LocalDialog :content="`twice click for hidden, you're allow to append the dialog to body on the same position`" :attach="false" :width="400" :height="400">
+            <v-btn block>
+              Show Dialog1
+            </v-btn>
+          </LocalDialog>
         </div>
       </template>
       <v-list nav>
         <v-list-item v-for="i in 9">
           <div class="pa-2">
-            <LocalDialog :content="`example2: twice click for hidden, There is no need to add @click events`">
+            <LocalDialog :content="`There is no need to add @click event to display dialog, it's a choice.`" :width="400">
               <v-btn> Show Dialog List{{ i }}</v-btn>
             </LocalDialog>
           </div>

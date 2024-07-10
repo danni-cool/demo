@@ -79,7 +79,8 @@ function toggleDialog() {
 :deep(.v-overlay__content) {
   top: var(--style-top);
   left: var(--style-left);
-  margin: 0 !important;
-  /** reset the container's size and align to 0,0 in window */
+  margin: 0 !important; /** reset the container's size and align to 0,0 in window */
+  max-width: initial !important; /** allow props width with higher priority */
+
 }
 </style>
