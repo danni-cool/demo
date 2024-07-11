@@ -22,6 +22,7 @@ export default {
 
 /**
  * the main function
+ * 支持基于iframe元素定位
  * @param { object } obj {id, relativeElPos: {width, height, left, top}}
  */
 export async function showDialog(obj = {}) {
@@ -72,6 +73,7 @@ export function fixPosition({ fixedElPrefix, callback }) {
 
 /**
  * create a container and append the dialog to it.
+ * 支持动态化插入dom
  * @param {object} relativeElPos {width,height,left,top}
  * @param {string} preOrderedId if you emit id, I'll use it, otherwise I'll create it automatically.
  * @returns {dialogid, vNode}
@@ -130,6 +132,7 @@ function updateDialogPosAndToggle(component, relativeElPos) {
 
 /**
  * the core algorithm of calculating the proper position of dialog
+ * dialog显示方向判定核心算法
  * @param {Object} relativeElPos
  * @param {Object} elPosition
  * @returns {top, left}
