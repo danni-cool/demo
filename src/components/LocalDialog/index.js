@@ -10,7 +10,7 @@ export const defaultSetting = {
 }
 
 /**
- * global install method
+ * Vue global install method
  */
 export default {
   install: app => {
@@ -19,20 +19,11 @@ export default {
   }
 }
 
+
 /**
- * method callback for fixing Element Position
- * @param { string } fixedElPrefix
- * @param { function } callback
+ * the main function
+ * @param { object } obj {id, relativeElPos: {width, height, left, top}}
  */
-export function fixPosition({ fixedElPrefix, callback }) {
-  map.forEach((v, k) => {
-    if (k.indexOf(fixedElPrefix) > -1) {
-      callback && callback(v, k)
-    }
-  })
-}
-
-
 export async function showDialog(obj = {}) {
   let top, left, width, height, id, relativeElPos
   const element = obj.element
@@ -44,7 +35,7 @@ export async function showDialog(obj = {}) {
   }
 
   // element from custom position(iframe)
-  if(!element && obj.relativeElPos) {
+  if (!element && obj.relativeElPos) {
     id = obj.id
     relativeElPos = obj.relativeElPos
   }
@@ -61,17 +52,29 @@ export async function showDialog(obj = {}) {
   const { dialogId, vNode } = createDialog(relativeElPos, id)
   map.set(dialogId, vNode)
 
-  if(element) {
+  if (element) {
     element.dataset['dialogId'] = dialogId
   }
-
-  return { isNew: true, dialogId }
 }
 
 /**
- * create and append a new dialog to #app container
- * @param {*} option
- * @returns
+ * method callback for fixing Element Position when resizing window
+ * @param { string } fixedElPrefix
+ * @param { function } callback
+ */
+export function fixPosition({ fixedElPrefix, callback }) {
+  map.forEach((v, k) => {
+    if (k.indexOf(fixedElPrefix) > -1) {
+      callback && callback(v, k)
+    }
+  })
+}
+
+/**
+ * create a container and append the dialog to it.
+ * @param {object} relativeElPos {width,height,left,top}
+ * @param {string} preOrderedId if you emit id, I'll use it, otherwise I'll create it automatically.
+ * @returns {dialogid, vNode}
  */
 function createDialog(relativeElPos, preOrderedId) {
   const dialogId = preOrderedId || `dialog-${count++}`
@@ -87,13 +90,17 @@ function createDialog(relativeElPos, preOrderedId) {
 
   updateDialogPosAndToggle(vNode.component, relativeElPos)
 
-
   return {
     dialogId,
     vNode
   }
 }
 
+/**
+ * switch display of dialog and recalculate it's position.
+ * @param {vNode} component
+ * @param {object} relativeElPos {width,height,left,top}
+ */
 function updateDialogPosAndToggle(component, relativeElPos) {
   const isDialogShow = component.props.modelValue
 
@@ -122,8 +129,10 @@ function updateDialogPosAndToggle(component, relativeElPos) {
 }
 
 /**
- * calculate the proper position of dialog
+ * the core algorithm of calculating the proper position of dialog
+ * @param {Object} relativeElPos
  * @param {Object} elPosition
+ * @returns {top, left}
  */
 export function calcDialogPosition(relativeElPos, dialogElPos) {
   const dialogOffsetLeft = dialogElPos.offsetLeft || 0
