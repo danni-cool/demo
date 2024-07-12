@@ -1,18 +1,5 @@
-实现功能：
+# Vue 3 + TypeScript + Vite
 
-版本1:
-- 1. 支持dialog显示方向判定
-- 2. 支持动态化插入dom
-- 3. 支持基于iframe元素定位
-- 4. 支持iframe左右拖动，仍然锚定iframe元素
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-版本2: 
-1. 支持组件化调用（见 app.vue 示例）
-    1. 可以调节偏移量
-    2. 可自定义内容大小
-    3. 可自定义内容
-    4. 可自定义内容组件
-    5. 可自定义关闭事件
-    6. 可teleport元素至body
-
-2. 支持全局方法 Service 调用（兼容iframe元素创建）
+Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
