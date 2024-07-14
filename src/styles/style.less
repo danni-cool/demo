@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+@import "./theme-light.css";
+@import './prism-theme-material-light.css';
+
+.outline-btn {
+  --_container-shape-start-start: 0.5rem;
+  --_container-shape-start-end: 0.5rem;
+  --_container-shape-end-start: 0.5rem;
+  --_container-shape-end-end: 0.5rem;
+  --_container-height: 1.75rem;
+  --_outline-color: #dfe1e6;
+  --_label-text-color: #545969;
+  --_icon-color: #545969;
+  --_pressed-outline-color: #dfe1e6;
+}
+
+.my-divide-b {
+  box-shadow: inset 0 -1px #e2e8f0;
+}
+
+.my-divide-b-2 {
+  box-shadow: inset 0 -2px #e2e8f0;
+}
+
+.my-divide-t {
+  box-shadow: inset 0 1px #e2e8f0;
+}
